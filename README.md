@@ -15,7 +15,7 @@ As mentioned above, there are four commands all using its respective API and que
     1.  concert-this
     2.  spotify-this-song
     3.  movie-this
-    4.  so-what-it-says
+    4.  do-what-it-says
     
 These commands should be run as an argument (*process.argv[2]*) after node and app.js, which is the name of the application. The next argument (*process.argv[3]*) would be the query. This will correspond to the command that is previously determined. More specifically, the queries are defines as follows:
 
