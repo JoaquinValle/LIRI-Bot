@@ -61,6 +61,7 @@ function concertThis() {
             for (let i = 1; res.data.length > i; i++) {
                 if (res.data[i].offers[0].status === "available") {
                     var available = "yes"
+                    var day = moment(res.data[i].datetime).format("LLLL")
                 }
                 else {
                     var available = "no"
@@ -68,7 +69,7 @@ function concertThis() {
                 if (res.data[i].venue.region === "") {
                     console.log("Venue: " + res.data[i].venue.name +
                             "\nLocation: " + res.data[i].venue.city + ", " + res.data[i].venue.country +
-                            "\nDate: " + res.data[i].datetime +
+                            "\nDate: " + day +
                             "\nTickets Available: " + available
                             )
                     console.log("-----------------------------------------")
@@ -76,7 +77,7 @@ function concertThis() {
                 else {
                 console.log("Venue: " + res.data[i].venue.name +
                             "\nLocation: " + res.data[i].venue.city + ", " + res.data[i].venue.region + ", " + res.data[i].venue.country +
-                            "\nDate: " + res.data[i].datetime +
+                            "\nDate: " + day +
                             "\nTickets Available: " + available
                             )
                 console.log("-----------------------------------------")
