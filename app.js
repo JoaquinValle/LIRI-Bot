@@ -59,17 +59,17 @@ function concertThis() {
         var url = "https://rest.bandsintown.com/artists/" + answer.artist + "/events?app_id=codingbootcamp"
         axios.get(url).then((res) => {
             for (let i = 1; res.data.length > i; i++) {
-                if (res.data[i].offers.status === "available") {
-                    var aviable = "yes"
+                if (res.data[i].offers[0].status === "available") {
+                    var available = "yes"
                 }
                 else {
-                    var aviable = "no"
+                    var available = "no"
                 }
                 if (res.data[i].venue.region === "") {
                     console.log("Venue: " + res.data[i].venue.name +
                             "\nLocation: " + res.data[i].venue.city + ", " + res.data[i].venue.country +
                             "\nDate: " + res.data[i].datetime +
-                            "\nTickets Availiable: " + aviable
+                            "\nTickets Available: " + available
                             )
                     console.log("-----------------------------------------")
                 }
@@ -77,7 +77,7 @@ function concertThis() {
                 console.log("Venue: " + res.data[i].venue.name +
                             "\nLocation: " + res.data[i].venue.city + ", " + res.data[i].venue.region + ", " + res.data[i].venue.country +
                             "\nDate: " + res.data[i].datetime +
-                            "\nTickets Availiable: " + aviable
+                            "\nTickets Available: " + available
                             )
                 console.log("-----------------------------------------")
 
