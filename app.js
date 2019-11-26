@@ -58,31 +58,53 @@ function concertThis() {
     ]).then((answer) => {
         var url = "https://rest.bandsintown.com/artists/" + answer.artist + "/events?app_id=codingbootcamp"
         axios.get(url).then((res) => {
-            for (let i = 1; res.data.length > i; i++) {
-                if (res.data[i].offers[0].status === "available") {
-                    var available = "yes"
-                    var day = moment(res.data[i].datetime).format("LLLL")
-                }
-                else {
-                    var available = "no"
-                }
-                if (res.data[i].venue.region === "") {
+            if (res.data.length === 0) {
+                console.log(`${answer.artist} does not have concerts anytime soon.`)
+            }
+            else {
+                for (let i = 1; res.data.length > i; i++) {
+                    if (res.data[i].offers[0].status === "available") {
+                        var available = "yes"
+                        var day = moment(res.data[i].datetime).format("LLLL")
+                    }
+                    else {
+                        var available = "no"
+                    }
+                    if (res.data[i].venue.region === "") {
+                        console.log("Venue: " + res.data[i].venue.name +
+                                "\nLocation: " + res.data[i].venue.city + ", " + res.data[i].venue.country +
+                                "\nDate: " + day +
+                                "\nTickets Available: " + available
+                                )
+                        console.log("-----------------------------------------")
+                    }
+                    else {
                     console.log("Venue: " + res.data[i].venue.name +
-                            "\nLocation: " + res.data[i].venue.city + ", " + res.data[i].venue.country +
-                            "\nDate: " + day +
-                            "\nTickets Available: " + available
-                            )
+                                "\nLocation: " + res.data[i].venue.city + ", " + res.data[i].venue.region + ", " + res.data[i].venue.country +
+                                "\nDate: " + day +
+                                "\nTickets Available: " + available
+                                )
                     console.log("-----------------------------------------")
-                }
-                else {
-                console.log("Venue: " + res.data[i].venue.name +
-                            "\nLocation: " + res.data[i].venue.city + ", " + res.data[i].venue.region + ", " + res.data[i].venue.country +
-                            "\nDate: " + day +
-                            "\nTickets Available: " + available
-                            )
-                console.log("-----------------------------------------")
 
+                    }
                 }
+            }
+        }).catch((error) => {
+            if (error.res) {
+                console.log("---------------Data---------------")
+                console.log(error.res.data)
+                console.log("---------------Status---------------")
+                console.log(error.res.status)
+                console.log("---------------Status---------------")
+                console.log(error.res.headers)
+            }
+            else if (error.request) {
+                console.log(error.request)
+            } else {
+                console.log("Error", error.message)
+            }
+            if (error.config) {
+            console.log(error.config)
             }
         }) 
     })
