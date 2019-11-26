@@ -71,7 +71,12 @@ function spotifyThis() {
             if (err) {
               return console.log('Error occurred: ' + err);
             }
-          console.log(`Song: ${data.tracks.items}|`) 
+            var songList = data.tracks.items
+            for (let i in songList) {
+                console.log(`Title: ${songList[i].name} | Artist: ${songList[i].artists[0].name} | Album: ${songList[i].album.name}`)
+                console.log("----------------------------------------------")
+            }
+          //console.log(`Song: ${data.tracks.items}|`) 
           });
     })
 }
