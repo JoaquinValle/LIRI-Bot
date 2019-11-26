@@ -42,7 +42,11 @@ switch(command) {
         break
 
     default:
-        console.log("Please enter a command")
+        console.log("No command was entered. Please enter one of the following commands: ")
+        console.log("concert-this <artist name>")
+        console.log("spotify-this-song <song name>")
+        console.log("movie-this <movie name>")
+        console.log("do-what-it-says <run commands from txt file>")
 } 
 
 function concertThis() {
@@ -113,6 +117,7 @@ function spotifyThis() {
             console.log("----------------------------------------------")
         }
         })
+    doWhatBool = false
 }
 
 function movieThis() {
