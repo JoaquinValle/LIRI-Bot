@@ -73,7 +73,7 @@ function spotifyThis() {
             }
             var songList = data.tracks.items
             for (let i in songList) {
-                console.log(`Title: ${songList[i].name} | Artist: ${songList[i].artists[0].name} | Album: ${songList[i].album.name}`)
+                console.log(`Title: ${songList[i].name} | Artist: ${songList[i].artists[0].name} | Album: ${songList[i].album.name} | URL: ${songList[i].preview_url}`)
                 console.log("----------------------------------------------")
             }
           //console.log(`Song: ${data.tracks.items}|`) 
