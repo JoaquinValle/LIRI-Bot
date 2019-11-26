@@ -103,8 +103,19 @@ function movieThis() {
                         "\nRotten Tomatoes Rating: " + res.data.Ratings[1].Value) 
         }).catch((error) => {
             if (error.res) {
-                console.log("There is an error")
+                console.log("---------------Data---------------");
+                console.log(error.res.data);
+                console.log("---------------Status---------------");
+                console.log(error.res.status);
+                console.log("---------------Status---------------");
+                console.log(error.res.headers);  
             }
+            else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("Error", error.message);
+            }
+            console.log(error.config);
         })
     })
 }
