@@ -73,15 +73,40 @@ function spotifyThis() {
             }
             var songList = data.tracks.items
             for (let i in songList) {
-                console.log(`Title: ${songList[i].name} | Artist: ${songList[i].artists[0].name} | Album: ${songList[i].album.name} | URL: ${songList[i].preview_url}`)
+                console.log(`Title: ${songList[i].name} | Artist: ${songList[i].artists[0].name} | Album: ${songList[i].album.name} | \n URL: ${songList[i].preview_url}`)
                 console.log("----------------------------------------------")
             }
-          //console.log(`Song: ${data.tracks.items}|`) 
           });
     })
 }
 
 function movieThis() {
+    inquirer.prompt([
+        {
+            name: "movie",
+            message: "Please write a movie title to search."
+        }
+    ]).then((answer) => {
+        var url =  "http://www.omdbapi.com/?t=" + answer.movie + "&y=&plot=short&apikey=trilogy"
+        axios.get(url).then((res) => {
+            console.log("Title: " + res.data.Title + 
+                        "\nReleased: " + res.data.Released +
+                        "\nCountry: " + res.data.Country +
+                        "\nDirector: " + res.data.Director +
+                        "\nActors: " + res.data.Actors +
+                        "\nProduction: " + res.data.Production +
+                        "\nGenre: " + res.data.Genre +
+                        "\nRuntime: " + res.data.Runtime +
+                        "\nRated: " + res.data.Rated +
+                        "\nPlot: " + res.data.Plot +
+                        "\nIMDB Rating: " + res.data.imdbRating +
+                        "\nRotten Tomatoes Rating: " + res.data.Ratings[1].Value) 
+        }).catch((error) => {
+            if (error.res) {
+                console.log("There is an error")
+            }
+        })
+    })
 }
 
 function doWhat() {
