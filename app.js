@@ -56,7 +56,34 @@ function concertThis() {
             message: "Please write artist or band name."
         }
     ]).then((answer) => {
-        console.log(answer.artist)
+        var url = "https://rest.bandsintown.com/artists/" + answer.artist + "/events?app_id=codingbootcamp"
+        axios.get(url).then((res) => {
+            for (let i = 1; res.data.length > i; i++) {
+                if (res.data[i].offers.status === "available") {
+                    var aviable = "yes"
+                }
+                else {
+                    var aviable = "no"
+                }
+                if (res.data[i].venue.region === "") {
+                    console.log("Venue: " + res.data[i].venue.name +
+                            "\nLocation: " + res.data[i].venue.city + ", " + res.data[i].venue.country +
+                            "\nDate: " + res.data[i].datetime +
+                            "\nTickets Availiable: " + aviable
+                            )
+                    console.log("-----------------------------------------")
+                }
+                else {
+                console.log("Venue: " + res.data[i].venue.name +
+                            "\nLocation: " + res.data[i].venue.city + ", " + res.data[i].venue.region + ", " + res.data[i].venue.country +
+                            "\nDate: " + res.data[i].datetime +
+                            "\nTickets Availiable: " + aviable
+                            )
+                console.log("-----------------------------------------")
+
+                }
+            }
+        }) 
     })
 }
 
@@ -90,17 +117,17 @@ function movieThis() {
         var url =  "http://www.omdbapi.com/?t=" + answer.movie + "&y=&plot=short&apikey=trilogy"
         axios.get(url).then((res) => {
             console.log("Title: " + res.data.Title + 
-                        "\nReleased: " + res.data.Released +
-                        "\nCountry: " + res.data.Country +
-                        "\nDirector: " + res.data.Director +
-                        "\nActors: " + res.data.Actors +
-                        "\nProduction: " + res.data.Production +
-                        "\nGenre: " + res.data.Genre +
-                        "\nRuntime: " + res.data.Runtime +
-                        "\nRated: " + res.data.Rated +
-                        "\nPlot: " + res.data.Plot +
-                        "\nIMDB Rating: " + res.data.imdbRating +
-                        "\nRotten Tomatoes Rating: " + res.data.Ratings[1].Value) 
+                        "\n Released: " + res.data.Released +
+                        "\n Country: " + res.data.Country +
+                        "\n Director: " + res.data.Director +
+                        "\n Actors: " + res.data.Actors +
+                        "\n Production: " + res.data.Production +
+                        "\n Genre: " + res.data.Genre +
+                        "\n Runtime: " + res.data.Runtime +
+                        "\n Rated: " + res.data.Rated +
+                        "\n Plot: " + res.data.Plot +
+                        "\n IMDB Rating: " + res.data.imdbRating +
+                        "\n Rotten Tomatoes Rating: " + res.data.Ratings[1].Value) 
         }).catch((error) => {
             if (error.res) {
                 console.log("---------------Data---------------");
