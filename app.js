@@ -40,7 +40,7 @@ switch(command) {
         break
 
     default:
-        console.log("\x1b[31m","No command was entered. Please enter one of the following commands: ")
+        console.log("\x1b[31m","No command was entered or an invalid command was entered. Please enter one of the following commands: ")
         console.log("\x1b[0m","       concert-this <artist name>")
         console.log("        spotify-this-song <song name>")
         console.log("        movie-this <movie name>")
@@ -95,6 +95,12 @@ function concertThis() {
                 }
             }
         }
+    fs.appendFile("log.txt", "\nConcert This: " + query + " Created At: " + moment().format("LLLL") + "\n", (err) => {
+        if (err) throw (err)
+    })
+    fs.appendFile("log.txt", "----------------------------------------------------------------", (err) => {
+        if (err) throw (err)
+    })
     }).catch((error) => {
         if (error.res) {
             console.log("---------------Data---------------")
@@ -119,6 +125,9 @@ function spotifyThis() {
     if (!doWhatBool) {
         query = queryArr.join(" ")
     }
+    if (queryArr.length === 0) {
+        query = "The Sign"
+    }
     spotify.search({ type: "track", query: query }, (err, data) => {
         if (err) {
             return console.log('Error occurred: ' + err);
@@ -134,8 +143,15 @@ function spotifyThis() {
             }
             console.log("\x1b[32m", " ----------------------------------------------")
         }
+        fs.appendFile("log.txt", "\nSpotify This: " + query + " Created At: " + moment().format("LLLL") + "\n", (err) => {
+            if (err) throw (err)
+        })
+        fs.appendFile("log.txt", "----------------------------------------------------------------", (err) => {
+            if (err) throw (err)
+        })
     })
     doWhatBool = false
+
 }
 
 function movieThis() {
@@ -188,6 +204,12 @@ function movieThis() {
         else {
             console.log(` Rotten Tomatoes Rating: \x1b[31m${res.data.imdbRating}\x1b[0m`)
         }
+        fs.appendFile("log.txt", "\nMovie This: " + query + " Created At: " + moment().format("LLLL") + "\n", (err) => {
+            if (err) throw (err)
+        })
+        fs.appendFile("log.txt", "----------------------------------------------------------------", (err) => {
+            if (err) throw (err)
+        })
     }).catch((error) => {
         if (error.res) {
             console.log("---------------Data---------------");
@@ -215,4 +237,13 @@ function doWhat() {
         query = text[1]
         spotifyThis(text[1]);
       });
+      fs.appendFile("log.txt", "Do What This Is: See Query below Created At: " + moment().format("LLLL") + "\n", (err) => {
+        if (err) throw (err)
+    })
+      fs.appendFile("log.txt", "----------------------------------------------------------------", (err) => {
+        if (err) throw (err)
+    })
+      fs.appendFile("log.txt","\n", (err) => {
+        if (err) throw (err)
+    })
 }
